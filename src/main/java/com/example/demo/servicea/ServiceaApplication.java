@@ -47,4 +47,6 @@ public class ServiceaApplication {
     public RequestInterceptor requestInterceptor(){
         return new FeignInterceptor();
     }
+
+
 }
