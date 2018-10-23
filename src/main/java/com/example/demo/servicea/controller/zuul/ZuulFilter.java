@@ -18,6 +18,7 @@ public class ZuulFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String value = ((HttpServletRequest) request).getHeader(RELATION_ID);
+        System.out.println("filter:"+value);
         RelationIdContextHolder.set(value);
         chain.doFilter(request,response);
     }
