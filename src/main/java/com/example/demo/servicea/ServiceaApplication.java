@@ -13,6 +13,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -23,6 +24,7 @@ import java.util.List;
 @EnableDiscoveryClient //发现注册服务的实例
 @EnableFeignClients
 @EnableCircuitBreaker//启动hystrix熔断和降级
+@EnableResourceServer//开启认证
 public class ServiceaApplication {
 
     public static void main(String[] args) {
