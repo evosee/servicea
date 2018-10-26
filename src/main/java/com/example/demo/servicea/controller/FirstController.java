@@ -12,6 +12,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,8 @@ public class FirstController {
     private RestTemplate restTemplate;
     @Autowired
     private FeignProviderRemote feignProviderRemote;
-
+    @Autowired
+    private OAuth2RestTemplate oAuth2RestTemplate;
     @Value("${test.value}")
     private String test;
 
@@ -72,7 +74,15 @@ public class FirstController {
         System.out.println(responseEntity.getBody());
         return "feigh";
     }
+    //测试Oauth2调用传递tocken
+    @RequestMapping("/oauth")
+    public String oauth() {
 
+        String url = "http://localhost:8082/b/first";
+        ResponseEntity<String> responseEntity = oAuth2RestTemplate.exchange(url, HttpMethod.GET, null, String.class);
+        System.out.println(responseEntity.getBody());
+        return "feigh";
+    }
     @RequestMapping("/feignProvider")
     @HystrixCommand(commandProperties = {@HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, value = "2000")}
             , fallbackMethod = "fallback",
