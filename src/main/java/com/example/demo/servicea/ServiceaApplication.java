@@ -5,6 +5,7 @@ import com.example.demo.servicea.controller.zuul.RelationIdInterceptor;
 import feign.Feign;
 import feign.RequestInterceptor;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.metrics.MetricsEndpoint;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateFactory;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -59,4 +60,6 @@ public class ServiceaApplication {
     public OAuth2RestTemplate oAuth2RestTemplate(UserInfoRestTemplateFactory factory){
         return factory.getUserInfoRestTemplate();
     }
+
+
 }
