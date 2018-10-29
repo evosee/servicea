@@ -4,6 +4,8 @@ import com.example.demo.servicea.remote.FeignProviderRemote;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -26,6 +28,8 @@ import java.util.List;
 @RefreshScope
 @EnableCircuitBreaker
 public class FirstController {
+
+    private Logger logger = LoggerFactory.getLogger(FirstController.class);
     @Autowired
     private DiscoveryClient discoveryClient;
     @Autowired
@@ -68,7 +72,7 @@ public class FirstController {
      */
     @RequestMapping("/feigh")
     public String feigh() {
-
+        logger.debug("yes you are right");
         String url = "http://serviceb/b/first";
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
         System.out.println(responseEntity.getBody());
